@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quick Notes</title>
+  </head>
+  <body>
+    <template id="noteItem">
+      <style>
+        :host {
+          display: block;
+          background-color: #a5f1d0;
+          border-radius: 8px;
+          box-shadow: 0 0 2px 2px #33333377;
+          padding: 16px 32px 16px 32px;
+          width: 300px;
+          height: 300px;
+        }
+
+        .note__title {
+          color: #2b384b;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        .note__description {
+          height: 75px;
+        }
+
+        hr {
+          border: 0;
+          height: 1px;
+          background-color: #000;
+          margin: 10px 0;
+        }
+
+        /* btn */
+        button {
+          appearance: none;
+          margin: 0;
+          padding: 0;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+          font-size: 1rem;
+          transition: all 150ms linear;
+        }
+        .btn {
+          border-radius: 5px;
+          padding: 16px 20px 16px 20px;
+          color: #2b384b;
+          font-weight: bold;
+          font-size: 13px;
+          min-width: fit-content;
+        }
+
+        .btn-group {
+          margin: 32px 0 8px 0;
+          display: flex;
+          grid-template-columns: auto;
+          justify-content: end;
+          gap: 8px;
+        }
+        .btn-group .btn {
+          background-color: #2b384b;
+          color: #e1e4ed;
+        }
+
+        .btn:hover {
+          background-color: #578787;
+        }
+
+        .btn img {
+          width: 20px;
+          height: 20px;
+        }
+        /* ------ */
+      </style>
+
+      <p class="note__title"><slot name="title">Note's Title</slot></p>
+      <p class="note__date"><slot name="short-date">Added Date</slot></p>
+      <hr />
+      <p class="note__description">
+        <slot name="short-description">Note'S Body</slot>
+      </p>
+      <div class="btn-group">
+        <button class="btn btn-remove">
+          <img src="trash.png" alt="" />
+        </button>
+        <button class="btn btn-archive">
+          <img src="archive.png" alt="" />
+        </button>
+      </div>
+    </template>
+
+    <header class="header container">
+      <div class="subheading">
+        <h1>Quick Notes</h1>
+        <img src="img1.png" alt="divider" />
+        <p>
+          Introducing Quick Notes, your personal assistant for stay organized
+          and productive. Say goodbye to scattered thoughts and hello to clarity
+          as you effortlessly capture, organize, and access your notes anytime,
+          anywhere.
+        </p>
+      </div>
+      <div class="note-form">
+        <form id="note-form">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input
+              type="text"
+              name="note-title"
+              id="note-title"
+              placeholder="Write notes' title here"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="note">Note</label>
+            <textarea
+              id="note-body"
+              name="note-body"
+              placeholder="Write your thoughts here"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" id="add-note" class="btn">Add Note</button>
+          </div>
+        </form>
+      </div>
+    </header>
+
+    <main class="container">
+      <div id="saved-notes">
+        <h2>Saved Notes</h2>
+        <div class="loader" id="loader" style="display: none;">
+            <h3>Loading..</h3>
+        </div>
+        <note-list id="saved-note-list"></note-list>
+      </div>
+      <div id="archived-notes">
+        <h2>Archive Notes</h2>
+        <note-list></note-list>
+      </div>
+    </main>
+  </body>
+  <footer>
+    <footer-bar></footer-bar>
+  </footer>
+</html>
